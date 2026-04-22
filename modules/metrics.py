@@ -1,34 +1,4 @@
 import streamlit as st
-import joblib
-import os
-import requests
-import zipfile
-# import gdown
-
-# @st.cache_resource
-# def load_metrics():
-#     # if not os.path.exists("models"):
-
-#     #     FILE_ID = "1ja_FHxj2I-lHJHjgbaOSDIljq5nrnCMP"
-#     #     url = f"https://drive.google.com/uc?id={FILE_ID}"
-
-#     #     # download zip
-#     #     gdown.download(url, "models.zip", quiet=False)
-
-#     #     # unzip
-#     #     with zipfile.ZipFile("models.zip", "r") as zip_ref:
-#     #         zip_ref.extractall("models")
-
-
-#     #     # unzip
-#     #     with zipfile.ZipFile("models.zip", "r") as zip_ref:
-#     #         zip_ref.extractall("models")
-#     pm10_metrics=joblib.load("models/pm10_model_metrics.pkl")
-#     pm25_metrics=joblib.load("models/pm25_model_metrics.pkl")
-#     return pm25_metrics,pm10_metrics
-
-# pm25,pm10 = load_metrics()
-
 
 def run():
 
@@ -54,9 +24,7 @@ def run():
 )
     st.divider()
 
-    # =========================
     # PM2.5
-    # =========================
     with st.container(border=True):
         st.subheader("PM2.5 Model Performance")
 
@@ -84,9 +52,7 @@ def run():
 
     st.divider()
 
-    # =========================
     # PM10
-    # =========================
     with st.container(border=True):
         st.subheader("PM10 Ratio Model Performance")
         st.markdown("Ratio = (PM10 / PM2.5)")
