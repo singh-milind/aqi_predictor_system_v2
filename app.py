@@ -4,7 +4,6 @@ import os
 import gdown
 import zipfile
 
-# MUST BE FIRST STREAMLIT COMMAND
 st.set_page_config(page_title="AQI System", layout="wide")
 
 from modules.ui_components import inject_glassmorphism
@@ -13,10 +12,15 @@ inject_glassmorphism()
 @st.cache_resource
 def load_all_resources():
     if not os.path.exists("models"):
-        FILE_ID = "1ja_FHxj2I-1HJHjgbaOSDIljq5nrnCMP"
+        FILE_ID = "1ja_FHxj2I-lHJHjgbaOSDIljq5nrnCMP"
         url = f"https://drive.google.com/uc?id={FILE_ID}"
 
-        gdown.download(url, "models.zip", quiet=False)
+        gdown.download(
+            id=FILE_ID,
+            output="models.zip",
+            quiet=False,
+            #fuzzy=True
+        )
 
         with zipfile.ZipFile("models.zip", "r") as zip_ref:
             zip_ref.extractall("models")
