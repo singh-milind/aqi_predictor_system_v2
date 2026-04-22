@@ -1,60 +1,12 @@
 import streamlit as st
 import pandas as pd
-import joblib
-import os
-import requests
-import zipfile
-# import gdown
-import pickle
+
 from modules.feature_builder import build_features
 import modules.ui_components as ui
 
-# =========================
-# LOAD MODELS
-# =========================
-# @st.cache_resource
-# def load_models():
-#     # if not os.path.exists("models"):
-
-#     #     FILE_ID = "1ja_FHxj2I-lHJHjgbaOSDIljq5nrnCMP"
-#     #     url = f"https://drive.google.com/uc?id={FILE_ID}"
-
-#     #     # download zip
-#     #     gdown.download(url, "models.zip", quiet=False)
-
-#     #     # unzip
-#     #     with zipfile.ZipFile("models.zip", "r") as zip_ref:
-#     #         zip_ref.extractall("models")
 
 
-#     #     # unzip
-#     #     with zipfile.ZipFile("models.zip", "r") as zip_ref:
-#     #         zip_ref.extractall("models")
-#     model_pm25 = joblib.load("models/weather_pm25_model.pkl")
-#     model_pm10 = joblib.load("models/weather_pm10_model.pkl")
-#     cols25 = joblib.load("models/weather_pm25_cols.pkl")
-#     cols10 = joblib.load("models/weather_pm10_cols.pkl")
-#     return model_pm25, model_pm10, cols25, cols10
-
-# model_pm25, model_pm10, cols25, cols10 = load_models()
-
-
-# =========================
-# PREDICT FUNCTION
-# =========================
-# def predict(input_data):
-#     df25, df10 = build_features(input_data, cols25, cols10)
-
-#     pm25 = model_pm25.predict(df25)[0]
-#     ratio = model_pm10.predict(df10)[0]
-#     pm10 = pm25 * ratio
-
-#     return pm25, pm10
-
-
-# =========================
 # MAIN
-# =========================
 def run():
 
     resources = st.session_state.resources
@@ -76,13 +28,11 @@ def run():
     st.caption("See how each parameter affects PM2.5 & PM10")
     st.divider()
     left, icenter, right = st.columns([1.5, 5, 1.5])
-    # st.caption("Weather Parameters")
 
     with icenter:
 
         ileft,iright = st.columns([3,3])
 
-        # CITY
 
         with ileft:    
             with st.expander("View Weather Verdict Guide"):
@@ -131,9 +81,9 @@ def run():
         st.divider()
 
 
-# =========================
+
+    
 # BASE (HARD CODED)
-# =========================
     base_input = {
         'temperature_2m': 25,
         'relative_humidity_2m': 65,
@@ -156,9 +106,7 @@ def run():
     with colD:
                         st.metric("Base PM10 (µg/m³)",round(base_pm10,2))
 
-    # =========================
     # BASE PREDICTION
-    # =========================
 
     def modify_and_predict(key, new_value):
         modified = base_input.copy()
@@ -173,9 +121,7 @@ def run():
     pres25,pres10=modify_and_predict('surface_pressure', pressure,)
     wd25,wd10=modify_and_predict('wind_direction_10m', wind_dir)
 
-    # =========================
     # FEATURES TO TEST
-    # =========================
     features = {
         "Temperature": (t25,t10),
         "Humidity": (h25,h10),
@@ -202,16 +148,9 @@ def run():
         })
 
     df = pd.DataFrame(results)
-
-    # =========================
-    # DISPLAY
-    # =========================
-    # =========================
-    # DISPLAY
-    # =========================
-    st.divider()
     
-    # Squeeze this section specifically by putting it in a center column
+    # DISPLAY
+    st.divider()
     col_spacer1, col_main, col_spacer2 = st.columns([1, 4, 1])
     
     with col_main:
@@ -221,7 +160,6 @@ def run():
             st.markdown('<div style="border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; margin-bottom: 1.5rem;"><span class="card-label" style="font-size: 1.1rem;">Feature Impact Analysis</span></div>', unsafe_allow_html=True)
             
             st.caption("Data Table (Percentage Change)")
-            # Using bar charts inside the dataframe looks much cleaner than background gradients in dark mode
             st.dataframe(
                 df.style.bar(subset=["PM2.5 % Change", "PM10 % Change"], color="#38bdf8", vmin=-100, vmax=100), 
                 use_container_width=True
@@ -232,6 +170,6 @@ def run():
             st.caption("Visual Impact (Line Chart)")
             st.line_chart(
                 df.set_index("Feature"), 
-                color=["#38bdf8", "#e879f9"],  # Using the neon blue and glowing pink from the headers
+                color=["#38bdf8", "#e879f9"], 
                 use_container_width=True
             )
