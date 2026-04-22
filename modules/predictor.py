@@ -4,47 +4,13 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pydeck as pdk
-import joblib
-import os
-import requests
-import zipfile
-# import gdown
-import pickle
+
 
 from modules.feature_builder import build_features
 from modules.aqi_utils import get_cpcb_aqi
 import modules.ui_components as ui
 
-
-
-
-# LOAD MODELS
-# @st.cache_resource
-# def load_models():
-#     # if not os.path.exists("models"):
-
-#     #     FILE_ID = "1ja_FHxj2I-lHJHjgbaOSDIljq5nrnCMP"
-#     #     url = f"https://drive.google.com/uc?id={FILE_ID}"
-
-#     #     # download zip
-#     #     gdown.download(url, "models.zip", quiet=False)
-
-#     #     # unzip
-#     #     with zipfile.ZipFile("models.zip", "r") as zip_ref:
-#     #         zip_ref.extractall("models")
-#     model_pm25 = joblib.load("models/weather_pm25_model.pkl")
-#     model_pm10 = joblib.load("models/weather_pm10_model.pkl")
-#     cols25 = joblib.load("models/weather_pm25_cols.pkl")
-#     cols10 = joblib.load("models/weather_pm10_cols.pkl")
-#     return model_pm25, model_pm10, cols25, cols10
-
-# model_pm25, model_pm10, cols25, cols10 = load_models()
-
-
-
 # VERDICT FUNCTIONS
-
-
 def get_cpcb_verdict_emoji(aqi):
     if aqi <= 50:
         return "🟢 Good"
@@ -77,7 +43,6 @@ season_matrix = pd.DataFrame(
     index=["South", "Northeast", "North", "Central", "East", "West", "NCR"],
 )
 
-# Your dataframe (same as before)
 df = season_matrix.copy()
 
 # Color mapping
@@ -304,8 +269,6 @@ def run():
     "Lucknow": {"lat": 26.8467, "lon": 80.9462},
     "Dehradun": {"lat": 30.3165, "lon": 78.0322},
     "Kolkata": {"lat": 22.5726, "lon": 88.3639},
-
-    # NCR Cities
     "Delhi": {"lat": 28.6139, "lon": 77.2090},
     "Gurugram": {"lat": 28.4595, "lon": 77.0266},
     "Noida": {"lat": 28.5355, "lon": 77.3910},
