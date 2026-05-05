@@ -57,12 +57,12 @@ with colA:
     st.caption("Note: This system is specifically designed for Indian AQI patterns and conditions.")
 
 with colB:
-    st.markdown("### Connect")
-    st.link_button(
-        "LinkedIn",
-        "https://www.linkedin.com/in/milind-singh-880a41314/",
-        use_container_width=True
-    )
+    # st.markdown("### Connect")
+    # st.link_button(
+    #     "LinkedIn",
+    #     "https://www.linkedin.com/in/milind-singh-880a41314/",
+    #     use_container_width=True
+    # )
     st.link_button(
         "Power BI Dashboard",
         "https://shorturl.at/UxeFd",
